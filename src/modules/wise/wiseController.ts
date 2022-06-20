@@ -12,7 +12,12 @@ export class WiseController {
   // Get all currencies which available in wise plateform
   public getBalanceCurrencies = async (req: Request, res: Response) => {
     try {
-      
+      const currencyResponse:any = await Wise.getCurrencies();
+      if (currencyResponse && currencyResponse.result) {
+        return res.status(Constants.SUCCESS_CODE).json({message: req.t("BALANCE_CURRENCY_FOUND"),result: currencyResponse.result });
+      } else {
+        return res.status(Constants.NOT_FOUND_CODE).json(ResponseBuilder.errorMessage(req.t("BALANCE_CURRENCY_NOT_FOUND")));
+      }
     } catch (error) {
       return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).send({ error: req.t("ERR_INTERNAL_SERVER")});
     }
@@ -21,7 +26,9 @@ export class WiseController {
   // Get all currencies-requirements of currency
   public accountRequirements = async (req: Request, res: Response) => {
     try {
-      
+      // const { addressData } = req.body;
+      // const { addressData } = req.body;
+      // const accountResponse:any = await Wise.getRecipientAccountFields();  
     } catch (error) {
       return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).send({ error: req.t("ERR_INTERNAL_SERVER")});
     }

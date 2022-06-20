@@ -14,5 +14,7 @@
   "ERR_INVALID_PASSWORD":"Please enter Correct Current Password.",
   "ERR_INVALID_SOCIAL_TYPE": "Invalid social logged in type.",
   "ERR_GENRIC_SYNTAX": "JSON request could not be parsed.",
-  "USER_UPDATED_SUCCESS":"Profile updated!!!"
+
+  "BALANCE_CURRENCY_FOUND":"Balance currencies found successfully.",
+  "BALANCE_CURRENCY_NOT_FOUND":"Balance currencies not found."
 }
