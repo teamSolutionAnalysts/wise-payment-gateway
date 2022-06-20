@@ -3,14 +3,14 @@ import { Constants } from "../../config/constants";
 import { Tables } from "../../config/tables";
 import { ResponseBuilder } from "../../helpers/responseBuilder";
 
-export class UserMiddleware {
+export class WiseMiddleware {
   public checkForUniqueEmail = async (req, res, next) => {
     const { email } = req.body;
-      next();
+    next();
   }
 
   public checkForValidEmail = async (req, res, next) => {
     const { email } = req.body;
-            next();
+    next();
   }
 }
