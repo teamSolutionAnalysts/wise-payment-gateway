@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { Constants } from "../../config/constants";
 import { Log } from "../../helpers/logger";
 import { ResponseBuilder } from "../../helpers/responseBuilder";
+import { Wise } from "../../helpers/wise";
 
 import {isEmpty} from "lodash";
 import { async } from "q";
