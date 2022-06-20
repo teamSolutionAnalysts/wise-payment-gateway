@@ -13,8 +13,10 @@ const userMiddleware = new UserMiddleware();
 const middleware = new Middleware();
 
 router.get("/currencies", userController.currencies);
-router.get("/currency-requirements/:currencyName", userController.currenciesRequirements);
-router.post("/",  userController.getUser);
+router.get("/currency-requirements/:currencyName", userController.currencyRequirements);
+router.post("/create-bank-account", userController.createBankAccount);
+router.post("/transfer-amount", userController.createTransfer);
+router.post("/changed-payment-status", userController.changedPaymentStatus);
 
 // Export the express.Router() instance to be used by server.ts
 export const UserRoute: Router = router;
