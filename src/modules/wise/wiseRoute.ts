@@ -14,7 +14,7 @@ const middleware = new Middleware();
 
 // Get currencies and account requirements
 router.get("/balance-currencies", wiseController.getBalanceCurrencies);
-router.get("/account-requirements/:currencyName", wiseController.accountRequirements);
+router.post("/account-requirements/:currencyName", wiseController.accountRequirements);
 
 // Add receipient one per payment
 router.post("/accounts", wiseController.createBankAccount);

@@ -24,8 +24,7 @@ export class Wise {
 
     public static async getRecipientAccountFields(data:any, currency:any) {
         return new Promise(async(resolve, reject) => {
-            const sourceCurrency = process.env.TRANSFERWISE_SOURCE_CURRENCY;
-            const requestURL = `${process.env.TRANSFERWISE_API_ENDPOINT}/v1/account-requirements?source=${sourceCurrency}&target=${currency}&sourceAmount=100`;
+            const requestURL = `${process.env.TRANSFERWISE_API_ENDPOINT}/v1/account-requirements?source=${process.env.TRANSFERWISE_SOURCE_CURRENCY}&target=${currency}&sourceAmount=100`;
             const options = await this.setOptionsData(requestURL, 'POST', { details: { address: data } });
             request(options, async (error, response, body) => {
                 if (response) {
