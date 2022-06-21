@@ -392,55 +392,79 @@ curl --location --request POST 'http://localhost:3003/api/wise/transfers' \
 
 
 
-### Create transfer ::
+### Simulate Transfer Processing ::
 
 **Request**
 
-**`POST http://localhost:3003/api/wise/transfers`**
+**`POST http://localhost:3003/api/wise/simulation/:id/:status`**
 
 **description**
 
-A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). In case not it will get automatically cancelled.
+You can simulate payment processing by changing transfer statuses using these endpoints.
+This feature is limited to sandbox only. Please note, simulation doesn't work with email transfers.
 
 **Example Request:**
 
 ```shell
-curl --location --request POST 'http://localhost:3003/api/wise/transfers' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "wiseId":148415792,
-    "targetCurrency":"CAD",
-    "sourceAmount":10
-}'
+curl --location --request GET 'http://localhost:3003/api/wise/simulation/<transfer-id>/<status>'
 ```
 
 **Example Response:**
 ```json
 {
-    "message": "Transfer to account has been completed.",
+    "message": "Transfer status has been changed to processing.",
     "result": {
-        "wiseTransactionId": 2783106,
-        "estimatedTime": "2022-06-21T22:30:00.000Z",
-        "status": "COMPLETED",
-        "paymentGatewayData": {
-            "transferId": 50916083,
-            "quoteId": "58f9e9cf-e12a-49c9-9026-0cf9e3abed39",
-            "type": "BALANCE",
-            "status": "COMPLETED",
-            "errorCode": null,
-            "errorMessage": null,
-            "balanceTransactionId": 2783106
-        }
+        "id": 50915590,
+        "user": 5974075,
+        "targetAccount": 148415792,
+        "sourceAccount": 148374699,
+        "quote": null,
+        "quoteUuid": "ef93c687-4322-4aba-ab67-1ab222a7c651",
+        "status": "processing",
+        "reference": "",
+        "rate": 1.2915,
+        "created": "2022-06-21 07:49:02",
+        "business": null,
+        "transferRequest": null,
+        "details": {
+            "reference": ""
+        },
+        "hasActiveIssues": false,
+        "sourceCurrency": "USD",
+        "sourceValue": 9.47,
+        "targetCurrency": "CAD",
+        "targetValue": 12.23,
+        "customerTransactionId": "7f823ed1-fc70-4f90-9fb5-e8bc02217eb4"
     }
 }
 ```
 
 
+**Transfer Requests:**
+
+**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/processing`**
+
+Changes transfer status from incoming_payment_waiting to processing.
+
+**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/funds_converted`**
+
+Changes transfer status from processing to funds_converted.<br/>
+
+**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/outgoing_payment_sent`**
+
+Changes transfer status from funds_converted to outgoing_payment_sent.<br/>
+
+**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/bounced_back`**
+
+Changes transfer status from outgoing_payment_sent to bounced_back.<br/>
+
+**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/funds_refunded`**
+
+Changes transfer status from bounced_back to funds_refunded.
 
 
-
-
-
+**Transfer Response:**
+Transfer entity with changed status. 
 
 
 
