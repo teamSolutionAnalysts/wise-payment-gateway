@@ -11,7 +11,7 @@ The TransferWise Node library provides convient access to the TransferWise API f
 
 See the [TransferWise API docs](https://api-docs.transferwise.com/#transferwise-api) for the offical docs, below is a list of methods supported by this library.
 
-## Installation
+## Generate Credentials
 
 Install the package with:
 
