@@ -34,8 +34,7 @@ Currently only supports methods listed below. Aim to support all API methods _so
 
 **description**
 
-A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). 
-In case not it will get automatically cancelled.  
+Create personal user profile. Same person cannot have multiple active duplicate user profiles. Thus creating multiple profiles with the same details will fail. Use the access token you received to act on behalf of the user in the Authorization header..  
 
 **Example Request:**
 
@@ -68,10 +67,6 @@ curl --location --request GET 'http://localhost:3003/api/wise/profiles'
     ]
 }
 ```
-
-
-
-
 
 
 **balance-currencies**
