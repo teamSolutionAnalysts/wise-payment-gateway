@@ -267,6 +267,25 @@ export class Wise {
         });
     }
 
+    public static async stimulateStatusChanging(transferId: any, status:any ) {
+        return new Promise(async (resolve, reject) => {
+            const requestURL = `${process.env.TRANSFERWISE_API_ENDPOINT}/v1/simulation/transfers/${transferId}/${status}`;
+            const options = await this.setOptionsData(requestURL, 'GET', {});
+            request(options, async (error, response, body) => {
+                if (response) {
+                    if (response.body) {
+                        resolve({
+                            data: response.body,
+                        });
+                    }
+                } else {
+                    console.log(`stimulate transfer ${error}`);
+                    reject(false);
+                }
+            });
+        });
+    }
+
     static async setOptionsData(url:any, method:any, body:any) {
         const headers = {
           'Authorization': `Bearer ${process.env.TRANSFERWISE_TOKEN}`,

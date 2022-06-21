@@ -211,8 +211,24 @@ export class WiseController {
   // Changed payment status
   public changePaymentStatus = async (req: Request, res: Response) => {
     try {
-      
+      const { id, status } = req.params;
+      // change to stimulate status
+      const stimulateResponse:any = await Wise.stimulateStatusChanging(id, status);
+
+      if(stimulateResponse && stimulateResponse.data && stimulateResponse.data.id){
+        const message = (status == Constants.WISE_TRANSFER_STATUS.PROCESSING) ? req.t("STATUS_CHANGED_PROCESSING") :
+                        (status == Constants.WISE_TRANSFER_STATUS.OUTGOING_PAYMENT_SENT) ? req.t("STATUS_CHANGED_OUTGOING_PAYMENT_SENT") :
+                        (status == Constants.WISE_TRANSFER_STATUS.FUNDS_REFUNDED) ? req.t("STATUS_CHANGED_FUNDS_REFUNDED") :
+                        (status == Constants.WISE_TRANSFER_STATUS.FUNDS_CONVERTED) ? req.t("STATUS_CHANGED_FUNDS_CONVERTED") :
+                        req.t("STATUS_CHANGED_BOUNCED_BACK");
+
+        return res.status(Constants.SUCCESS_CODE).json({message : message, result : stimulateResponse.data});
+      } else {
+        const errMsg = (stimulateResponse.data.errors.length > 0) ? stimulateResponse.data.errors[0].message : req.t("STATUS_NOT_CHANGED");
+        return res.status(Constants.NOT_FOUND_CODE).json(ResponseBuilder.errorMessage(errMsg));
+      }
     } catch (error) {
+      console.log(error);
       return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).send({ error: req.t("ERR_INTERNAL_SERVER")});
     }
   }

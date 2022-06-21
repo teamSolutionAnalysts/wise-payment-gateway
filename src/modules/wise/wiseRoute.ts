@@ -26,11 +26,7 @@ router.post("/accounts", wiseController.createBankAccount);
 router.post("/transfers", wiseController.createTransfer);
 
 // Simulation Transfer Process (SBX only)
-router.get("/simulation/:transferId/processing", wiseController.changePaymentStatus);
-router.get("/simulation/:transferId/funds_converted", wiseController.changePaymentStatus);
-router.get("/simulation/:transferId/outgoing_payment_sent", wiseController.changePaymentStatus);
-router.get("/simulation/:transferId/bounced_back", wiseController.changePaymentStatus);
-router.get("/simulation/:transferId/funds_refunded", wiseController.changePaymentStatus);
+router.get("/simulation/:id/:status", wiseController.changePaymentStatus); // processing, outgoing_payment_sent, funds_converted, bounced_back, funds_refunded
 
 // Export the express.Router() instance to be used by server.ts
 export const WiseRoute: Router = router;

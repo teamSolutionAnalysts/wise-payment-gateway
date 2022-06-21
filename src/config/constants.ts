@@ -19,4 +19,12 @@ export class Constants {
     REJECTED: "REJECTED",
     FAILED: "FAILED"
   };
+
+  public static readonly WISE_TRANSFER_STATUS = {
+    PROCESSING: "processing",
+    OUTGOING_PAYMENT_SENT: "outgoing_payment_sent",
+    FUNDS_CONVERTED: "funds_converted",
+    BOUNCED_BACK: "bounced_back",
+    FUNDS_REFUNDED: "funds_refunded",
+  };
 }

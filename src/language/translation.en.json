@@ -27,5 +27,12 @@
   "ERR_PAY_INVOICE_QUOTE":"Failed to pay invoice quote.",
   "TRANSFERWISE_REJECTED":"Transfer to account been rejected.",
   "TRANSFERWISE_COMPLETED":"Transfer to account has been completed.",
-  "TRANSFERWISE_FAILED" : "Failed to transfer an amount."
+  "TRANSFERWISE_FAILED" : "Failed to transfer an amount.",
+
+  "STATUS_CHANGED_PROCESSING":"Transfer status has been changed to processing.",
+  "STATUS_CHANGED_OUTGOING_PAYMENT_SENT":"Transfer status has been changed to outgoing payment sent.",
+  "STATUS_CHANGED_FUNDS_REFUNDED":"Transfer status has been changed to funds refunded.",
+  "STATUS_CHANGED_FUNDS_CONVERTED":"Transfer status has been changed to funds converted.",
+  "STATUS_CHANGED_BOUNCED_BACK":"Transfer status has been changed to bounced back.",
+  "STATUS_NOT_CHANGED":"Failed to change status"
 }
