@@ -1,9 +1,5 @@
 # TransferWise Node.js Library
 
-[![Version](https://img.shields.io/npm/v/@fightmegg/transferwise.svg)](https://www.npmjs.com/package/@fightmegg/transferwise)
-[![Downloads](https://img.shields.io/npm/dm/@fightmegg/transferwise.svg)](https://www.npmjs.com/package/@fightmegg/transferwise)
-[![CircleCI](https://circleci.com/gh/fightmegg/transferwise/tree/master.svg?style=svg)](https://circleci.com/gh/fightmegg/transferwise/tree/master)
-
 > An open-source TransferWise API client for Node.JS
 The TransferWise Node library provides convient access to the TransferWise API from applications written in server-side JavaScript.
 
