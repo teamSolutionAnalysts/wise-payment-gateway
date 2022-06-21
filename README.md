@@ -31,13 +31,13 @@ Currently only supports methods listed below. Aim to support all API methods _so
 await tw.profiles();
 ```
 
-**borderlessAccounts**
+**balance-currencies**
 
 ```js
 await tw.borderlessAccounts("<profileId>");
 ```
 
-**recipientAccounts**
+**accounts-requirements**
 
 ```js
 await tw.recipientAccounts.create("<accounts object>");
@@ -46,7 +46,7 @@ await tw.recipientAccounts.delete("<accountId>");
 await tw.recipientAccounts.list("<account url params>");
 ```
 
-**quotes**
+**accounts**
 
 ```js
 await tw.quotes.temporary("<quote url params>");
