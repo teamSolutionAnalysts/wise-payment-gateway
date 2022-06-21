@@ -442,31 +442,29 @@ curl --location --request GET 'http://localhost:3003/api/wise/simulation/<transf
 
 **Transfer Requests:**
 
-**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/processing`**
+**`GET http://localhost:3003/api/wise/simulation/{transferId}/processing`**
 
 Changes transfer status from incoming_payment_waiting to processing.
 
-**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/funds_converted`**
+**`GET http://localhost:3003/api/wise/simulation/{transferId}/funds_converted`**
 
 Changes transfer status from processing to funds_converted.<br/>
 
-**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/outgoing_payment_sent`**
+**`GET http://localhost:3003/api/wise/simulation/{transferId}/outgoing_payment_sent`**
 
 Changes transfer status from funds_converted to outgoing_payment_sent.<br/>
 
-**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/bounced_back`**
+**`GET http://localhost:3003/api/wise/simulation/{transferId}/bounced_back`**
 
 Changes transfer status from outgoing_payment_sent to bounced_back.<br/>
 
-**`GET https://api.sandbox.transferwise.tech/v1/simulation/transfers/{transferId}/funds_refunded`**
+**`GET http://localhost:3003/api/wise/simulation/{transferId}/funds_refunded`**
 
 Changes transfer status from bounced_back to funds_refunded.
 
 
 **Transfer Response:**
 Transfer entity with changed status. 
-
-
 
 
 ## Webhook Verification
@@ -505,10 +503,16 @@ When funding a transfer, the transfer state might show `processing`, however thi
 
 ## Development
 
-Run all tests:
+Run build command:
 
 ```bash
-$ npm test
+$ npm run build
 ```
 
-This library is published to both the NPM and GitHub package registrys.
+Run start command:
+
+```bash
+$ npm run start
+```
+
+This library is used to both the mobile and web application.
