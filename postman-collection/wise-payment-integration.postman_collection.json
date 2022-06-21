@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "e3435b38-0695-4777-9693-f51eaf86e403",
+		"name": "wise-payment-integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Balance currencies",
+			"item": [
+				{
+					"name": "get balance currencies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}wise/balance-currencies",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"balance-currencies"
+							]
+						},
+						"description": "This endpoint returns all the currencies available for balance accounts. You can use this list to create a balance account for the currency included."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account Requirements",
+			"item": [
+				{
+					"name": "account requirements",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currency\": \"GBP\",\n    \"legalType\": \"PRIVATE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}wise/account-requirements/:currencyName",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"account-requirements",
+								":currencyName"
+							],
+							"variable": [
+								{
+									"key": "currencyName",
+									"value": "USD"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "create account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.result.wiseId) postman.setEnvironmentVariable(\"new-recipient-id\", jsonData.result.wiseId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paymentType\":\"bank\",\n    \"currency\":\"CAD\",\n    \"type\":\"canadian\",\n    \"accountHolderName\":\"Daps Chavhan\",\n    \"legalType\":\"PRIVATE\",\n    \"institutionNumber\":\"270\",\n    \"transitNumber\":\"00012\",\n    \"accountNumber\":\"40117399\",\n    \"accountType\":\"CHECKING\",\n    \"address.country\":\"CA\",\n    \"address.city\":\"Toronto\",\n    \"address.firstLine\":\"JP Morgan Chase Bank, N.A., Toronto Branch\",\n    \"address.postCode\":\"M5J2J2\",\n    \"address.state\":\"ON\"\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}wise/accounts",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfers",
+			"item": [
+				{
+					"name": "create transfer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.result.wiseTransactionId) postman.setEnvironmentVariable(\"new-transfer-id\", jsonData.result.wiseTransactionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wiseId\":{{new-recipient-id}},\n    \"targetCurrency\":\"CAD\",\n    \"sourceAmount\":10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}wise/transfers",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"transfers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Simulation",
+			"item": [
+				{
+					"name": "processing request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}wise/simulation/:id/:status",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"simulation",
+								":id",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{new-transfer-id}}"
+								},
+								{
+									"key": "status",
+									"value": "processing"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "funds_converted request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}wise/simulation/:transferId/:status",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"simulation",
+								":transferId",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "transferId",
+									"value": "{{new-transfer-id}}"
+								},
+								{
+									"key": "status",
+									"value": "funds_converted"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "outgoing_payment_sent request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}wise/simulation/:transferId/:status",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"simulation",
+								":transferId",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "transferId",
+									"value": "{{new-transfer-id}}"
+								},
+								{
+									"key": "status",
+									"value": "outgoing_payment_sent"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bounced_back request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}wise/simulation/:transferId/:status",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"simulation",
+								":transferId",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "transferId",
+									"value": "{{new-transfer-id}}"
+								},
+								{
+									"key": "status",
+									"value": "bounced_back"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "funds_refunded request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}wise/simulation/:transferId/:status",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"simulation",
+								":transferId",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "transferId",
+									"value": "{{new-transfer-id}}"
+								},
+								{
+									"key": "status",
+									"value": "funds_refunded"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "get profiles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.result[0].id) postman.setEnvironmentVariable(\"personal-profile-id\", jsonData.result[0].id);",
+									"if (jsonData.result[1].id) postman.setEnvironmentVariable(\"business-profile-id\", jsonData.result[1].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}wise/profiles",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"profiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "currency exchange response",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sourceAmount\":10,\n    \"targetCurrency\":\"CAD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}wise/currency-exchange-response",
+							"host": [
+								"{{host}}wise"
+							],
+							"path": [
+								"currency-exchange-response"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
