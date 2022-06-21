@@ -12,6 +12,9 @@ const wiseController = new WiseController();
 const wiseMiddleware = new WiseMiddleware();
 const middleware = new Middleware();
 
+// Get profiles
+router.get("/profiles", wiseController.getProfiles);
+
 // Get currencies and account requirements
 router.get("/balance-currencies", wiseController.getBalanceCurrencies);
 router.post("/account-requirements/:currencyName", wiseController.accountRequirements);

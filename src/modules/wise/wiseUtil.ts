@@ -4,6 +4,24 @@ const request = require('request');
 
 export class Wise {
 
+    public static async getProfile() {
+        return new Promise(async(resolve, reject) => {
+            const requestURL = `${process.env.TRANSFERWISE_API_ENDPOINT}/v1/profiles`;
+            const options = await this.setOptionsData(requestURL, 'GET', {});
+            request(options, async (error, response, body) => {
+                if (response) {
+                    if (response.body) {
+                        resolve({
+                            result: response.body,
+                        });
+                    }
+                } else {
+                    reject(false);
+                }
+            });
+        });
+    }
+
     public static async getCurrencies() {
         return new Promise(async(resolve, reject) => {
             const requestURL = `${process.env.TRANSFERWISE_API_ENDPOINT}/v1/borderless-accounts/balance-currencies`;

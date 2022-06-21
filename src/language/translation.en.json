@@ -15,6 +15,12 @@
   "ERR_INVALID_SOCIAL_TYPE": "Invalid social logged in type.",
   "ERR_GENRIC_SYNTAX": "JSON request could not be parsed.",
 
+  "PROFILE_FOUND":"Profile details found successfully.",
+  "PROFILE_NOT_FOUND":"Profile details not found.",
   "BALANCE_CURRENCY_FOUND":"Balance currencies found successfully.",
-  "BALANCE_CURRENCY_NOT_FOUND":"Balance currencies not found."
+  "BALANCE_CURRENCY_NOT_FOUND":"Balance currencies not found.",
+  "PAYMENT_CURRENCY_FIELDS_FOUND":"Account requirements has been found successfully.",
+  "PAYMENT_CURRENCY_FIELDS_NOT_FOUND":"Account requirements not found.",
+  "BANK_ADDED":"Wise account has been created successfully.",
+  "ERR_BANK_ADD":"Failed to create bank account."
 }
