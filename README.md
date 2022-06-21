@@ -27,9 +27,56 @@ Currently only supports methods listed below. Aim to support all API methods _so
 
 **profiles**
 
-```js
-await tw.profiles();
+> Example Request:
+```shell
+curl -X POST https://api.sandbox.transferwise.tech/v1/transfers \
+     -H "Authorization: Bearer <your api token>" \
+     -H "Content-Type: application/json" \
+     -d '{ 
+          "targetAccount": <recipient account id>,   
+          "quote": <quote id>,
+          "customerTransactionId": "<the UUID you generated for the transfer attempt>",
+          "details" : {
+              "reference" : "to my friend",
+              "transferPurpose": "verification.transfers.purpose.pay.bills",
+              "sourceOfFunds": "verification.source.of.funds.other"
+            } 
+         }'
 ```
+
+> Example Response:
+```json
+{
+    "id": 468956,
+    "user": <your user id>,
+    "targetAccount": <recipient account id>,
+    "sourceAccount": null,
+    "quote": <quote id>,
+    "status": "incoming_payment_waiting",
+    "reference": "to my friend",
+    "rate": 0.9065,
+    "created": "2018-08-28 07:43:55",
+    "business": <your business profile id>,
+    "transferRequest": null,
+    "details": {
+        "reference": "to my friend"
+    },
+    "hasActiveIssues": false,
+    "sourceCurrency": "EUR",
+    "sourceValue": 661.89,
+    "targetCurrency": "GBP",
+    "targetValue": 600,
+    "customerTransactionId": "bd244a95-dcf8-4c31-aac8-bf5e2f3e54c0"
+}
+```
+
+A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). 
+In case not it will get automatically cancelled.  
+
+
+### Request
+
+**`POST https://api.sandbox.transferwise.tech/v1/transfers`**
 
 **balance-currencies**
 
