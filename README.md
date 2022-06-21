@@ -110,9 +110,6 @@ curl --location --request POST 'http://localhost:3003/api/wise/currency-exchange
 }
 ```
 
-
-
-
 ### Get profiles currencies
 
 **Request**
@@ -147,6 +144,72 @@ curl --location --request GET 'http://localhost:3003/api/wise/balance-currencies
 
 
 
+
+### Get account's requirements (Related to fields)
+
+**Request**
+
+
+**`POST http://localhost:3003/api/wise/account-requirements/:currencyName`**
+
+**description**
+
+This API returns the all the fields which is necessary to fill up when we selected any currency. Based on this api in UI side developers showcase the dynamic form for the bank account based on selected currency.  
+
+**Example Request:**
+
+```shell
+curl --location --request POST 'http://localhost:3003/api/wise/account-requirements/USD' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "currency": "GBP",
+    "legalType": "PRIVATE"
+}'
+```
+
+**Example Response:**
+```json
+{
+    "message": "Account requirements has been found successfully.",
+    "result": [
+        {
+            "type": "sort_code",
+            "title": "Local bank account",
+            "usageInfo": null,
+            "fields": [
+                {
+                    "name": "Recipient type",
+                    "group": [
+                        {
+                            "key": "legalType",
+                            "name": "Recipient type",
+                            "type": "select",
+                            "refreshRequirementsOnChange": true,
+                            "required": true,
+                            "displayFormat": null,
+                            "example": "",
+                            "minLength": null,
+                            "maxLength": null,
+                            "validationRegexp": null,
+                            "validationAsync": null,
+                            "valuesAllowed": [
+                                {
+                                    "key": "PRIVATE",
+                                    "name": "Person"
+                                },
+                                {
+                                    "key": "BUSINESS",
+                                    "name": "Business"
+                                }
+                            ]
+                        }
+                    ]
+                },
+            ]
+        }
+    ]
+}
+```
 
 
 
