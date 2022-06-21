@@ -15,9 +15,13 @@ See the [TransferWise API docs](https://api-docs.transferwise.com/#transferwise-
 
 Below is a series of steps which can through you can generate wise payment gateway's credentials.:
 
-```sh
-npm install @fightmegg/transferwise
-```
+**1. Create a Transfer**
+
+When creating a transfer, the field **targetValue** will always be populated as `0` regardless, therefore you should only rely on this field in production.
+
+**2. Simulate a Transfer**
+
+When funding a transfer, the transfer state might show `processing`, however this state is misleading. When simulating, you will still need to simulate from `incoming_payment_waiting` to `processing`.
 
 ## Usage
 
