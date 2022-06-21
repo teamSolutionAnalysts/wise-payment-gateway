@@ -16,11 +16,11 @@ See the [TransferWise API docs](https://api-docs.transferwise.com/#transferwise-
 Below is a series of steps which can through you can generate wise payment gateway's credentials.:
 
 - When creating a new account you redirected to the sandbox account.
-- When creating a new account you redirected to the sandbox account.
-- When creating a new account you redirected to the sandbox account.
-
+- From settings section you can generate new API tokens.
+- Collect API-KEY and put it in your .env file.
 
 **NB: Requires Node >= 12**
+
 ## Methods
 
 Currently only supports methods listed below. Aim to support all API methods _soon_.
