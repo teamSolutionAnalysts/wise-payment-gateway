@@ -347,6 +347,101 @@ curl --location --request POST 'http://localhost:3003/api/wise/accounts' \
 ```
 
 
+### Create transfer ::
+
+**Request**
+
+**`POST http://localhost:3003/api/wise/transfers`**
+
+**description**
+
+A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). In case not it will get automatically cancelled.
+
+**Example Request:**
+
+```shell
+curl --location --request POST 'http://localhost:3003/api/wise/transfers' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "wiseId":148415792,
+    "targetCurrency":"CAD",
+    "sourceAmount":10
+}'
+```
+
+**Example Response:**
+```json
+{
+    "message": "Transfer to account has been completed.",
+    "result": {
+        "wiseTransactionId": 2783106,
+        "estimatedTime": "2022-06-21T22:30:00.000Z",
+        "status": "COMPLETED",
+        "paymentGatewayData": {
+            "transferId": 50916083,
+            "quoteId": "58f9e9cf-e12a-49c9-9026-0cf9e3abed39",
+            "type": "BALANCE",
+            "status": "COMPLETED",
+            "errorCode": null,
+            "errorMessage": null,
+            "balanceTransactionId": 2783106
+        }
+    }
+}
+```
+
+
+
+### Create transfer ::
+
+**Request**
+
+**`POST http://localhost:3003/api/wise/transfers`**
+
+**description**
+
+A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). In case not it will get automatically cancelled.
+
+**Example Request:**
+
+```shell
+curl --location --request POST 'http://localhost:3003/api/wise/transfers' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "wiseId":148415792,
+    "targetCurrency":"CAD",
+    "sourceAmount":10
+}'
+```
+
+**Example Response:**
+```json
+{
+    "message": "Transfer to account has been completed.",
+    "result": {
+        "wiseTransactionId": 2783106,
+        "estimatedTime": "2022-06-21T22:30:00.000Z",
+        "status": "COMPLETED",
+        "paymentGatewayData": {
+            "transferId": 50916083,
+            "quoteId": "58f9e9cf-e12a-49c9-9026-0cf9e3abed39",
+            "type": "BALANCE",
+            "status": "COMPLETED",
+            "errorCode": null,
+            "errorMessage": null,
+            "balanceTransactionId": 2783106
+        }
+    }
+}
+```
+
+
+
+
+
+
+
+
 
 
 **balance-currencies**
