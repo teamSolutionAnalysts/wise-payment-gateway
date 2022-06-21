@@ -68,8 +68,6 @@ curl --location --request GET 'http://localhost:3003/api/wise/profiles'
 }
 ```
 
-
-
 ### Currency Exchange Response
 
 **Request**
@@ -111,6 +109,42 @@ curl --location --request POST 'http://localhost:3003/api/wise/currency-exchange
     }
 }
 ```
+
+
+
+
+### Get profiles currencies
+
+**Request**
+
+
+**`POST http://localhost:3003/api/wise/balance-currencies`**
+
+**description**
+
+This API returns the all the available currencies in the wise platform which can helps to developer to showcase the all currencies in the UI.  
+
+**Example Request:**
+
+```shell
+curl --location --request GET 'http://localhost:3003/api/wise/balance-currencies'
+```
+
+**Example Response:**
+```json
+{
+    "message": "Balance currencies found successfully.",
+    "result": [
+        {
+            "code": "<country code>",
+            "hasBankDetails": false,
+            "payInAllowed": false,
+            "sampleBankDetails": null
+        },
+    ]
+}
+```
+
 
 
 
