@@ -25,7 +25,7 @@ Below is a series of steps which can through you can generate wise payment gatew
 
 Currently only supports methods listed below. Aim to support all API methods _soon_.
 
-### Profiles
+### Profiles :: 
 
 **Request**
 
@@ -68,7 +68,7 @@ curl --location --request GET 'http://localhost:3003/api/wise/profiles'
 }
 ```
 
-### Currency Exchange Response
+### Currency Exchange Response :: 
 
 **Request**
 
@@ -110,7 +110,7 @@ curl --location --request POST 'http://localhost:3003/api/wise/currency-exchange
 }
 ```
 
-### Get profiles currencies
+### Get profiles currencies ::
 
 **Request**
 
@@ -142,10 +142,7 @@ curl --location --request GET 'http://localhost:3003/api/wise/balance-currencies
 }
 ```
 
-
-
-
-### Get account's requirements (Related to fields)
+### Get account's requirements (Related to fields) :: 
 
 **Request**
 
