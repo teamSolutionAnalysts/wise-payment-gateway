@@ -15,21 +15,10 @@ See the [TransferWise API docs](https://api-docs.transferwise.com/#transferwise-
 
 Below is a series of steps which can through you can generate wise payment gateway's credentials.:
 
-**1. Create a Transfer**
+- When creating a new account you redirected to the sandbox account.
+- When creating a new account you redirected to the sandbox account.
+- When creating a new account you redirected to the sandbox account.
 
-When creating a transfer, the field **targetValue** will always be populated as `0` regardless, therefore you should only rely on this field in production.
-
-**2. Simulate a Transfer**
-
-When funding a transfer, the transfer state might show `processing`, however this state is misleading. When simulating, you will still need to simulate from `incoming_payment_waiting` to `processing`.
-
-## Usage
-
-```js
-import TransferWise from '@fightmegg/transferwise';
-const tw = new TransferWise({ token: ..., sandbox: true });
-const profiles = await tw.profiles();
-```
 
 **NB: Requires Node >= 12**
 ## Methods
