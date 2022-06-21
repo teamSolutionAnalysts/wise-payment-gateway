@@ -13,7 +13,7 @@ See the [TransferWise API docs](https://api-docs.transferwise.com/#transferwise-
 
 ## Generate Credentials
 
-Install the package with:
+Below is a series of steps which can through you can generate wise payment gateway's credentials.:
 
 ```sh
 npm install @fightmegg/transferwise
