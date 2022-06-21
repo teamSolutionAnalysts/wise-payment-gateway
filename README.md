@@ -69,6 +69,54 @@ curl --location --request GET 'http://localhost:3003/api/wise/profiles'
 ```
 
 
+
+### Currency Exchange Response
+
+**Request**
+
+
+**`POST http://localhost:3003/api/wise/currency-exchange-response`**
+
+**description**
+
+Currency exchange api returns the real time currency exchange charges, fees and final amount to send to respective recipients account.  
+
+**Example Request:**
+
+```shell
+curl --location --request POST 'http://localhost:3003/api/wise/currency-exchange-response' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        "sourceAmount":10,
+        "targetCurrency":"CAD"
+    }'
+```
+
+**Example Response:**
+```json
+{
+    "message": "Currency exchange response has been found successfully.",
+    "result": {
+        "payIn": "BALANCE",
+        "payOut": "BANK_TRANSFER",
+        "sourceCurrency": "USD",
+        "targetCurrency": "CAD",
+        "sourceAmount": 10,
+        "targetAmount": 12.23,
+        "fee": 0.53,
+        "rate": 1.2914,
+        "rateType": "FIXED",
+        "feePercentage": 0.053,
+        "estimatedDelivery": "2022-06-21T15:30:00Z"
+    }
+}
+```
+
+
+
+
+
+
 **balance-currencies**
 
 ```js
