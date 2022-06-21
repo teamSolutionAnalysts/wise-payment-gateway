@@ -208,6 +208,144 @@ curl --location --request POST 'http://localhost:3003/api/wise/account-requireme
 }
 ```
 
+### Create bank account ::
+
+**Request**
+
+**`POST http://localhost:3003/api/wise/accounts`**
+
+**description**
+
+Recipient is a person or institution who is the ultimate beneficiary of your payment.
+Recipient data includes three data blocks.
+
+**1. General Data**
+
+Owned by customer is a boolen to flag whether this recipient is the same entity (person or business) as the one sending the funds. i.e. A user sending money to thier own account in another country/currency. This can be used to separate these recipients in your UI.
+
+**2. Bank account data**
+
+There are many different variations of bank account details needed depending on recipient target currency. 
+
+**3. Address data**
+
+Recipient address data is required only if target currency is USD, PHP, THB or TRY, or if the source currency is USD or AUD.
+
+**Example Request:**
+
+```shell
+curl --location --request POST 'http://localhost:3003/api/wise/accounts' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "paymentType":"bank",
+    "currency":"CAD",
+    "type":"canadian",
+    "accountHolderName":"<user name>",
+    "legalType":"PRIVATE",
+    "institutionNumber":"270",
+    "transitNumber":"00012",
+    "accountNumber":"40117399",
+    "accountType":"CHECKING",
+    "address.country":"CA",
+    "address.city":"Toronto",
+    "address.firstLine":"JP Morgan Chase Bank, N.A., Toronto Branch",
+    "address.postCode":"M5J2J2",
+    "address.state":"ON"
+}'
+```
+
+**Example Response:**
+```json
+{
+    "message": "Wise account has been created successfully.",
+    "result": {
+        "wiseId": 148415792,
+        "recipientData": {
+            "data": {
+                "id": 148415792,
+                "business": 16462863,
+                "profile": 16462863,
+                "accountHolderName": "< user name >",
+                "currency": "CAD",
+                "country": "CA",
+                "type": "canadian",
+                "details": {
+                    "address": {
+                        "country": "CA",
+                        "countryCode": "CA",
+                        "firstLine": "JP Morgan Chase Bank, N.A., Toronto Branch",
+                        "postCode": "M5J2J2",
+                        "city": "Toronto",
+                        "state": "ON"
+                    },
+                    "email": null,
+                    "legalType": "PRIVATE",
+                    "accountHolderName": null,
+                    "accountNumber": "40117399",
+                    "sortCode": null,
+                    "abartn": null,
+                    "accountType": "CHECKING",
+                    "bankgiroNumber": null,
+                    "ifscCode": null,
+                    "bsbCode": null,
+                    "institutionNumber": "270",
+                    "transitNumber": "00012",
+                    "phoneNumber": null,
+                    "bankCode": null,
+                    "russiaRegion": null,
+                    "routingNumber": null,
+                    "branchCode": null,
+                    "cpf": null,
+                    "cardToken": null,
+                    "idType": null,
+                    "idNumber": null,
+                    "idCountryIso3": null,
+                    "idValidFrom": null,
+                    "idValidTo": null,
+                    "clabe": null,
+                    "swiftCode": null,
+                    "dateOfBirth": null,
+                    "clearingNumber": null,
+                    "bankName": null,
+                    "branchName": null,
+                    "businessNumber": null,
+                    "province": null,
+                    "city": null,
+                    "rut": null,
+                    "token": null,
+                    "cnpj": null,
+                    "payinReference": null,
+                    "pspReference": null,
+                    "orderId": null,
+                    "idDocumentType": null,
+                    "idDocumentNumber": null,
+                    "targetProfile": null,
+                    "targetUserId": null,
+                    "taxId": null,
+                    "job": null,
+                    "nationality": null,
+                    "interacAccount": null,
+                    "bban": null,
+                    "town": null,
+                    "postCode": null,
+                    "language": null,
+                    "billerCode": null,
+                    "customerReferenceNumber": null,
+                    "prefix": null,
+                    "IBAN": null,
+                    "iban": null,
+                    "BIC": null,
+                    "bic": null
+                },
+                "user": 5974075,
+                "active": true,
+                "ownedByCustomer": false
+            }
+        }
+    }
+}
+```
+
 
 
 
