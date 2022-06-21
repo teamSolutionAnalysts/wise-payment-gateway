@@ -12,6 +12,7 @@ const middleware = new Middleware();
 
 // Get profiles
 router.get("/profiles", wiseController.getProfiles);
+router.post("/currency-exchange-response", wiseController.getCurrencyExchange);
 
 // Get currencies and account requirements
 router.get("/balance-currencies", wiseController.getBalanceCurrencies);

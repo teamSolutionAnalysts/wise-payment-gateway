@@ -34,5 +34,7 @@
   "STATUS_CHANGED_FUNDS_REFUNDED":"Transfer status has been changed to funds refunded.",
   "STATUS_CHANGED_FUNDS_CONVERTED":"Transfer status has been changed to funds converted.",
   "STATUS_CHANGED_BOUNCED_BACK":"Transfer status has been changed to bounced back.",
-  "STATUS_NOT_CHANGED":"Failed to change status"
+  "STATUS_NOT_CHANGED":"Failed to change status",
+  "CURRENCY_EXCHANGE_DATA":"Currency exchange response has been found successfully.",
+  "ERR_CURRENCY_EXCHANGE_DATA":"Currency exchange response not found."
 }

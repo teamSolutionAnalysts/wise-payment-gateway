@@ -226,4 +226,45 @@ export class WiseController {
       return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).send({ error: req.t("ERR_INTERNAL_SERVER")});
     }
   }
+
+  // Get currency exchange rate
+  public getCurrencyExchange = async (req: Request, res: Response) => {
+    try {
+      const { sourceAmount, targetCurrency } = req.body;
+      // create quoteObj
+      const quoteObj = {
+        sourceCurrency: process.env.TRANSFERWISE_SOURCE_CURRENCY,
+        targetCurrency: targetCurrency,
+        sourceAmount: sourceAmount,
+        targetAmount: null,
+        payOut: "BANK_TRANSFER",
+        preferredPayIn: "BALANCE",
+      }
+
+      // createQuote
+      const quoteData:any = await Wise.createCurrencyExchangeQuote(quoteObj);
+      if(quoteData && quoteData.data.id){ 
+        const paymentOptions = {
+          "payIn": quoteData.data.paymentOptions[0].payIn,
+          "payOut": quoteData.data.paymentOptions[0].payOut,
+          "sourceCurrency": quoteData.data.sourceCurrency,
+          "targetCurrency": quoteData.data.targetCurrency,
+          "sourceAmount": quoteData.data.paymentOptions[0].sourceAmount,
+          "targetAmount": quoteData.data.paymentOptions[0].targetAmount,
+          "fee":quoteData.data.paymentOptions[0].fee.total,
+          "rate":quoteData.data.rate,
+          "rateType":quoteData.data.rateType,
+          "feePercentage": quoteData.data.paymentOptions[0].feePercentage,
+          "estimatedDelivery": quoteData.data.paymentOptions[0].estimatedDelivery,
+        }
+
+        return res.status(200).json({ message: req.t("CURRENCY_EXCHANGE_DATA"), result: paymentOptions });
+      } else {
+        const errMsg = (quoteData.data.errors.length > 0) ? quoteData.data.errors[0].message : req.t("ERR_BANK_QUOTE_GENERATE");
+        return res.status(400).json(ResponseBuilder.errorMessage(errMsg));
+      }
+    } catch (error) {
+      return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).send({ error: req.t("ERR_INTERNAL_SERVER")});
+    }
+  }
 }
