@@ -2,6 +2,7 @@ import bcryptjs = require("bcryptjs");
 import { Request, Response } from "express";
 import { Constants } from "../../config/constants";
 import { Log } from "../../helpers/logger";
+import * as uuid from "node-uuid";
 import { ResponseBuilder } from "../../helpers/responseBuilder";
 import { Wise } from "./wiseUtil";
 
@@ -103,9 +104,107 @@ export class WiseController {
   // Create transfer
   public createTransfer = async (req: Request, res: Response) => {
     try {
-      
+      let transferParams = req.body;
+      const wiseId = Number(transferParams.wiseId)
+   
+      // Generate QuoteParams
+      const quoteParams:any = {
+        profile: Number(process.env.TRANSFERWISE_PROFILE_ID),
+        sourceCurrency: process.env.TRANSFERWISE_SOURCE_CURRENCY,
+        sourceAmount: transferParams.sourceAmount,
+        targetCurrency: transferParams.targetCurrency,
+        targetAccount: wiseId,
+        payOut: null,
+        preferredPayIn: null
+      }
+
+      const quote:any = await Wise.createQuote(quoteParams); // Generated quote
+      if( quote && quote.data && quote.data.id ) {
+        const transferParams = {
+          targetAccount: wiseId,
+          quoteUuid: quote.data.id,
+          customerTransactionId: uuid.v4()
+        }
+        const transfer: any = await this.createTransferFund(quote.data.id, transferParams); // Create Transfer
+       
+        if(transfer && transfer.paymentStatus == Constants.TRANSFER_STATUS.REJECTED){
+          const transferResponse = {
+            status: Constants.TRANSFER_STATUS.FAILED, 
+            wiseTransactionId: transfer.paymentGatewayData.balanceTransactionId,
+            paymentGatewayData: JSON.stringify(transfer.paymentGatewayData), // invoice data
+          };
+          return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).json(ResponseBuilder.errorMessage({message: req.t("TRANSFERWISE_REJECTED"), result: transferResponse}));
+
+        } else if(transfer && transfer.paymentStatus == Constants.TRANSFER_STATUS.COMPLETED) {
+          const getTimeEst: any = await Wise.getEstimatedTime(transfer.paymentGatewayData.transferId);
+          const estTime = (getTimeEst && getTimeEst.data && getTimeEst.data.estimatedDeliveryDate) ? new Date(getTimeEst.data.estimatedDeliveryDate) : "";
+        
+          const transferResponse = {
+            wiseTransactionId: transfer.paymentGatewayData.balanceTransactionId,
+            estimatedTime : estTime,
+            status: Constants.TRANSFER_STATUS.COMPLETED, 
+            paymentGatewayData: transfer.paymentGatewayData, // invoice data
+          };
+          return res.status(Constants.SUCCESS_CODE).json({ message: req.t("TRANSFERWISE_COMPLETED"), result: transferResponse });
+        } else {
+          return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).json(ResponseBuilder.errorMessage(req.t("TRANSFERWISE_FAILED")));
+        }
+      } else {
+        console.log(`ERR_PAY_INVOICE_QUOTE : ${Date.now()} , TARGET_ACCOUNT - ${quoteParams.targetAccount}`);
+        return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).json(ResponseBuilder.errorMessage(req.t("ERR_PAY_INVOICE_QUOTE")));
+      }
     } catch (error) {
       return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).send({ error: req.t("ERR_INTERNAL_SERVER")});
+    }
+  }
+
+  // create Transfer
+  public createTransferFund = async(quoteId, transferParams) => {
+    let resObj = {};
+    const transfer:any = await Wise.createTransfer(transferParams);
+    if( transfer && transfer.data && transfer.data.id ) {
+      const transferId = transfer.data.id;
+      const fundTransferObj = {
+          transferId,
+          type: Constants.BALANCE,
+      }
+
+      // Transfer Money
+      const transferFund: any = await Wise.transferFund(fundTransferObj);
+      if (transferFund && transferFund.data) {
+        let paymentStatus = ''
+        let invoiceObj = {};
+        if (transferFund.data.status === Constants.TRANSFER_STATUS.COMPLETED) {
+            console.log(`TRANSFERWISE_SUCCESSFULLY : ${Date.now()} , TRANSFER_ID- ${transferId} , TARGET_ACCOUNT - ${transferParams.targetAccount}`);
+
+            paymentStatus = Constants.TRANSFER_STATUS.COMPLETED;
+            invoiceObj = {
+                transferId,
+                quoteId,
+                ...transferFund.data
+            }
+            resObj = { paymentStatus: paymentStatus, paymentGatewayData: invoiceObj }
+            return resObj;
+        } else {
+            console.log(`ERR_TRANSFERWISE_REJECTED_OR_FAILED : ${Date.now()} , TRANSFER_ID- ${transferId} , TARGET_ACCOUNT - ${transferParams.targetAccount}`);
+            paymentStatus = Constants.TRANSFER_STATUS.REJECTED;
+            invoiceObj = {
+                transferId,
+                quoteId,
+                ...transferFund.data
+            }
+            resObj = { paymentStatus: paymentStatus, paymentGatewayData: invoiceObj }
+            return resObj;
+        }
+      } else {
+        console.log(`ERR_PAY_INVOICE_TRANSFER_FUND : ${Date.now()} , TRANSFER_ID- ${transferId} , TARGET_ACCOUNT - ${transferParams.targetAccount}`);
+        resObj = { paymentStatus: Constants.TRANSFER_STATUS.REJECTED, paymentGatewayData: transferFund }
+        return resObj;
+      }
+    } else {
+      console.log(`ERR_PAY_CREATE_TRANSFER : ${Date.now()} , TRANSFER_ID- ${quoteId} , TARGET_ACCOUNT - ${transferParams.targetAccount}`);
+      resObj = { paymentStatus: Constants.TRANSFER_STATUS.REJECTED, paymentGatewayData: transfer }
+      return resObj;
     }
   }
 

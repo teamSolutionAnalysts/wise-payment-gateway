@@ -22,5 +22,10 @@
   "PAYMENT_CURRENCY_FIELDS_FOUND":"Account requirements has been found successfully.",
   "PAYMENT_CURRENCY_FIELDS_NOT_FOUND":"Account requirements not found.",
   "BANK_ADDED":"Wise account has been created successfully.",
-  "ERR_BANK_ADD":"Failed to create bank account."
+  "ERR_BANK_ADD":"Failed to create bank account.",
+
+  "ERR_PAY_INVOICE_QUOTE":"Failed to pay invoice quote.",
+  "TRANSFERWISE_REJECTED":"Transfer to account been rejected.",
+  "TRANSFERWISE_COMPLETED":"Transfer to account has been completed.",
+  "TRANSFERWISE_FAILED" : "Failed to transfer an amount."
 }

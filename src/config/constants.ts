@@ -5,6 +5,7 @@ export class Constants {
   public static readonly INTERNAL_SERVER_ERROR_CODE = 500;
   public static readonly FAIL_CODE = 400;
   public static readonly FORBIDDEN_CODE = 403;
+  public static readonly BALANCE = 'BALANCE';
   public static readonly TIMEZONE = "Asia/Kolkata";
   public static readonly SUCCESS = "SUCCESS";
   public static readonly ERROR = "ERROR";
@@ -13,4 +14,9 @@ export class Constants {
   public static readonly CODE = "CODE";
   public static readonly APPROVED = "APPROVED";
   public static readonly INVALID_REQUEST = "INVALID_REQUEST";
+  public static readonly TRANSFER_STATUS = {
+    COMPLETED: "COMPLETED",
+    REJECTED: "REJECTED",
+    FAILED: "FAILED"
+  };
 }
