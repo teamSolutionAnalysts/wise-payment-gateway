@@ -19,8 +19,6 @@ Install the package with:
 npm install @fightmegg/transferwise
 ```
 
-**NB: Requires Node >= 12**
-
 ## Usage
 
 ```js
@@ -29,6 +27,7 @@ const tw = new TransferWise({ token: ..., sandbox: true });
 const profiles = await tw.profiles();
 ```
 
+**NB: Requires Node >= 12**
 ## Methods
 
 Currently only supports methods listed below. Aim to support all API methods _soon_.
