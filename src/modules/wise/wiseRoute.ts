@@ -3,13 +3,11 @@ import { Router } from "express";
 import { Middleware } from "../../middleware";
 import { Validator } from "../../validate";
 import { WiseController } from "./wiseController";
-import { WiseMiddleware } from "./wiseMiddleware";
 
 // Assign router to the express.Router() instance
 const router: Router = Router();
 const v: Validator = new Validator();
 const wiseController = new WiseController();
-const wiseMiddleware = new WiseMiddleware();
 const middleware = new Middleware();
 
 // Get profiles

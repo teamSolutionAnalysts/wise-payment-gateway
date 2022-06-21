@@ -1,14 +1,8 @@
-import bcryptjs = require("bcryptjs");
 import { Request, Response } from "express";
 import { Constants } from "../../config/constants";
-import { Log } from "../../helpers/logger";
 import * as uuid from "node-uuid";
 import { ResponseBuilder } from "../../helpers/responseBuilder";
 import { Wise } from "./wiseUtil";
-
-import {isEmpty} from "lodash";
-import { async } from "q";
-
 export class WiseController {
 
   // Get profiles details
