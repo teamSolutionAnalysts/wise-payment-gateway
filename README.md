@@ -27,6 +27,15 @@ Currently only supports methods listed below. Aim to support all API methods _so
 
 **profiles**
 
+### Request
+
+**`POST https://api.sandbox.transferwise.tech/v1/transfers`**
+
+### description
+
+A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). 
+In case not it will get automatically cancelled.  
+
 ```js
 Example Request:
 ```
@@ -75,13 +84,10 @@ Example Response:
 }
 ```
 
-A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). 
-In case not it will get automatically cancelled.  
 
 
-### Request
 
-**`POST https://api.sandbox.transferwise.tech/v1/transfers`**
+
 
 **balance-currencies**
 
