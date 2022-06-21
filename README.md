@@ -444,50 +444,6 @@ curl --location --request POST 'http://localhost:3003/api/wise/transfers' \
 
 
 
-**balance-currencies**
-
-```js
-await tw.borderlessAccounts("<profileId>");
-```
-
-**accounts-requirements**
-
-```js
-await tw.recipientAccounts.create("<accounts object>");
-await tw.recipientAccounts.get("<accountId>");
-await tw.recipientAccounts.delete("<accountId>");
-await tw.recipientAccounts.list("<account url params>");
-```
-
-**accounts**
-
-```js
-await tw.quotes.temporary("<quote url params>");
-await tw.quotes.create("<quote object>");
-await tw.quotes.get("<quoteId>");
-```
-
-**transfers**
-
-```js
-await tw.transfers.create("<transfer object>");
-await tw.transfers.cancel("<transfer object>");
-await tw.transfers.get("<transferId>");
-await tw.transfers.issues("<transferId>");
-await tw.transfers.fund("<profileId>", "<transferId>");
-await tw.transfers.deliveryEstimate("<transferId>");
-await tw.transfers.list("<transfer url params>");
-```
-
-**simulation**
-
-```js
-await tw.simulation.transfers.processing("<transferId>");
-await tw.simulation.transfers.fundsConverted("<transferId>");
-await tw.simulation.transfers.outgoingPaymentSent("<transferId>");
-await tw.simulation.transfers.bouncedBack("<transferId>");
-await tw.simulation.transfers.fundsRefunded("<transferId>");
-```
 
 ## Webhook Verification
 
