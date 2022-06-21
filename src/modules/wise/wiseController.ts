@@ -267,4 +267,33 @@ export class WiseController {
       return res.status(Constants.INTERNAL_SERVER_ERROR_CODE).send({ error: req.t("ERR_INTERNAL_SERVER")});
     }
   }
+
+  // Get webhook response
+  public transferStatusChangeWebhook = async (req: Request, res: Response) => {
+    const payload = req.body;
+    
+    // payload params
+    const wiseType = payload.data.resource.type;
+    const wiseTransferId = payload.data.resource.id;
+    const currentState = payload.data.current_state;
+    const occurredAt = payload.data.occurred_at;
+    
+    let updateParams:any = {};
+
+    if(wiseType == Constants.WISE_TRANSFER_STATUS.TRANSFER_TYPE && currentState == Constants.WISE_TRANSFER_STATUS.OUTGOING_PAYMENT_SENT){
+      updateParams = {
+        status : Constants.TRANSFER_STATUS.COMPLETED,
+        wisePaymentUpdatedDatetime : new Date(occurredAt)
+      }
+      return res.status(202).json({ message: req.t("WISE_BANK_ACCOUNT_ADDED"), result: payload });
+    } else if(wiseType == Constants.WISE_TRANSFER_STATUS.TRANSFER_TYPE && currentState == Constants.WISE_TRANSFER_STATUS.FUNDS_REFUNDED) {
+      updateParams = {
+        status : Constants.TRANSFER_STATUS.FAILED,
+        wisePaymentUpdatedDatetime : new Date(occurredAt)
+      }
+      return res.status(202).json({ message: req.t("WISE_BANK_ACCOUNT_ADDED"), result: payload });
+    } else {
+      return res.status(202).json({ message: req.t("WISE_BANK_ACCOUNT_NOT_ADDED"), result: payload });
+    }
+  }
 }

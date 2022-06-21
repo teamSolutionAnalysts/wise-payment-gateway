@@ -21,6 +21,7 @@ export class Constants {
   };
 
   public static readonly WISE_TRANSFER_STATUS = {
+    TRANSFER_TYPE: "transfer",
     PROCESSING: "processing",
     OUTGOING_PAYMENT_SENT: "outgoing_payment_sent",
     FUNDS_CONVERTED: "funds_converted",

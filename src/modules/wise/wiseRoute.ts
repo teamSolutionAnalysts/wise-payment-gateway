@@ -27,5 +27,9 @@ router.post("/transfers", wiseController.createTransfer);
 // Simulation Transfer Process (SBX only)
 router.get("/simulation/:id/:status", wiseController.changePaymentStatus); // processing, outgoing_payment_sent, funds_converted, bounced_back, funds_refunded
 
+// Transfer status change webhook
+router.get("/transfer-status-change-webhook", wiseController.transferStatusChangeWebhook);
+
+
 // Export the express.Router() instance to be used by server.ts
 export const WiseRoute: Router = router;
