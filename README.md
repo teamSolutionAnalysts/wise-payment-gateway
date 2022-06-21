@@ -25,20 +25,19 @@ Below is a series of steps which can through you can generate wise payment gatew
 
 Currently only supports methods listed below. Aim to support all API methods _soon_.
 
-**profiles**
+### Profiles
 
-### Request
+**Request**
+
 
 **`POST https://api.sandbox.transferwise.tech/v1/transfers`**
 
-### description
+**description**
 
 A transfer is a payout order to a recipient account based on a quote. Once created, a transfer needs to be funded during the next 10 working days (based on the source currency). 
 In case not it will get automatically cancelled.  
 
-```js
-Example Request:
-```
+**Example Request:**
 
 ```shell
 curl -X POST https://api.sandbox.transferwise.tech/v1/transfers \
@@ -56,9 +55,7 @@ curl -X POST https://api.sandbox.transferwise.tech/v1/transfers \
          }'
 ```
 
-```js
-Example Response:
-```
+**Example Response:**
 ```json
 {
     "id": 468956,
