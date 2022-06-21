@@ -27,7 +27,10 @@ Currently only supports methods listed below. Aim to support all API methods _so
 
 **profiles**
 
-> Example Request:
+```js
+Example Request:
+```
+
 ```shell
 curl -X POST https://api.sandbox.transferwise.tech/v1/transfers \
      -H "Authorization: Bearer <your api token>" \
@@ -44,7 +47,9 @@ curl -X POST https://api.sandbox.transferwise.tech/v1/transfers \
          }'
 ```
 
-> Example Response:
+```js
+Example Response:
+```
 ```json
 {
     "id": 468956,
