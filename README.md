@@ -469,22 +469,33 @@ TransferWise signs all Webhook events, and it is recommended that you [verify th
 
 Similarly to how `stripe node` works, you should only use the event returned from the method below.
 
-```js
-const event = tw.webhooks.constructEvent("<webhookMsg>", "<signature>");
+
+**Transfer status change event**
+
+This event will be triggered every time a transfer's status is updated. Each event contains a timestamp. As we do not guarantee the order of events, please use data.occurred_at to reconcile the order.
+
+If you would like to subscribe to transfer state change events, please use transfers#state-change when creating your subscription.
+
+**Webhook Response:**
+```json
+{
+    "data": {
+        "resource": {
+            "type": "transfer",
+            "id": 111,
+            "profile_id": 222,
+            "account_id": 333
+        },
+        "current_state": "processing",
+        "previous_state": "incoming_payment_waiting",
+        "occurred_at": "2020-01-01T12:34:56Z"
+    },
+    "subscription_id": "01234567-89ab-cdef-0123-456789abcdef",
+    "event_type": "transfers#state-change",
+    "schema_version": "2.0.0",
+    "sent_at": "2020-01-01T12:34:56Z"
+}
 ```
-
-Please note that you must pass the **raw** request body, exactly as recieved from TransferWise to the `constructEvent()` function; this will not work with a parsed (i.e., JSON) request body.
-
-You can find an example of how to use this with [Express](https://expressjs.com/) below:
-
-```js
-app.post("/", bodyParser.raw({ type: "application.json" }), (req, res) => {
-  const sig = req.headers["x-signature"];
-  const event = tw.webhooks.constructEvent(req.body, sig);
-  // ...
-});
-```
-
 ## Known Sandbox Issues
 
 Below is a series of issues that l have found out through various email chains with TransferWise API team.
