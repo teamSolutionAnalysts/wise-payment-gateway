@@ -1,0 +1,7 @@
+node_modules
+dist/
+.env
+src/modules/_media
+src/modules/forgotpassword
+_package.json
+dev.env

@@ -1,0 +1,47 @@
+{
+  "name": "wise-payment-gateway",
+  "version": "1.0.0",
+  "description": "Wise International Money Transfer Solutions",
+  "main": "server.js",
+  "scripts": {
+    "tsc": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts' --fix",
+    "start": "tsc --watch & cp -Rf src/templates/ dist/templates & nodemon dist",
+    "build": "tsc && rm -rf dist/templates && mkdir -p uploads && mkdir -p dist/templates && cp -R src/templates/* dist/templates",
+    "env": "sync-dotenv --env .env --sample env.sample"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.sa-labs.info/reusable-component/nodejs/wise-payment-gateway.git"
+  },
+  "author": "Solution Analysts pvt ltd",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "class-validator": "^0.13.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "jm-ez-l10n": "^1.0.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.25",
+    "morgan": "^1.9.1",
+    "node-uuid": "^1.4.8",
+    "nodemon": "^1.18.10",
+    "request": "^2.88.2",
+    "winston": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/body-parser": "^1.17.0",
+    "@types/node": "13.13.4",
+    "@types/node-uuid": "0.0.28",
+    "@types/q": "^1.5.2",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.12.1",
+    "typescript": "^3.4.1",
+    "typescript-eslint-parser": "^21.0.2"
+  }
+}
